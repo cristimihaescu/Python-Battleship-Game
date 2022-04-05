@@ -3,8 +3,6 @@
 # initializing board
 
 
-
-
 def get_size():
     board = []
 
@@ -39,13 +37,11 @@ def print_board(board, board_size):
 
     print('\n')
     row_counter = 0
-    alphabet_letters = []
     for row in board:
         print(chr(row_counter+65), end='   ')
-        alphabet_letters.append(chr(row_counter +65))
         row_counter += 1
         print(" ".join(row))
-    return alphabet_letters
+
 
 def ship_placement(board, alphabet_letters):
     placement = input("Please select a position for your ship ! Row first and column second !")
@@ -53,27 +49,38 @@ def ship_placement(board, alphabet_letters):
     for letter in alphabet_letters:
         counter_letter += 1
         if placement[0].casefold() == letter.casefold():
-            for index , number in enumerate(board[counter_letter]) :
+            for index, number in enumerate(board[counter_letter]):
                 if int(placement[1])-1 == index:
                     board[counter_letter][index] = "X"
-                
+
+
 def ship_size(board, alphabet_letters, board_size):
     ships_size = [1, 1, 1, 1]
+    ships_size_counter = 0
     for size in ships_size:
+        ships_size_counter += 1
         if size == 1:
-            alphabet_letters = print_board(board, board_size)
+            print_board(board, board_size)
+            if ships_size_counter == 1:
+                print(f"\nChoose your {ships_size_counter}st ship !\n")
+            if ships_size_counter == 2:
+                print(f"\nChoose your {ships_size_counter}nd ship !\n")
+            if ships_size_counter == 3:
+                print(f"\nChoose your {ships_size_counter}rd ship !\n")
+            if ships_size_counter == 4:
+                print(f"\nChoose your {ships_size_counter}th ship !\n")
             ship_placement(board, alphabet_letters)
         else:
             print("The max ship size can only be 1 !")
 
 
-
-
-    
-
-        
-
-
+def alphabet_letters_get(board):
+    alphabet_letters = []
+    row_counter = 0
+    for row in board:
+        alphabet_letters.append(chr(row_counter + 65))
+        row_counter += 1
+    return alphabet_letters
 
 
 def main():
@@ -82,11 +89,13 @@ def main():
 
     board, board_size = get_size()
     pre_game_preparation = True
+    alphabet_letters = alphabet_letters_get(board)
 
     while pre_game_preparation:
-        alphabet_letters = print_board(board, board_size)
         ship_size(board, alphabet_letters, board_size)
-        #pre_game_preparation = False
+        # pre_game_preparation = False
     print(alphabet_letters)
+
+
 if __name__ == "__main__":
     main()
