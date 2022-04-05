@@ -54,53 +54,43 @@ def ship_placement(board, alphabet_letters):
         if placement[0].casefold() == letter.casefold():
             for index, number in enumerate(board[counter_letter]):
                 if int(placement[1])-1 == index:
-                    # up = False
-                    # down = False
-                    # right = False
-                    # left = False
-                    # try:
-                    #     board[counter_letter][index+1] = 'X'
-                    # except IndexError:
-                    #     right = False
-                    # finally:
-                    #     right = True
 
-                    # try:
-                    #     board[counter_letter][index-1] = 'X'
-                    # except IndexError:
-                    #     left = False
-                    # finally:
-                    #     left = True
-
-                    # try:
-                    #     board[counter_letter+1][index] = 'X'
-                    # except IndexError:
-                    #     up = False
-                    # finally:
-                    #     up = True
-
-                    # try:
-                    #     board[counter_letter-1][index] = 'X'
-                    # except IndexError:
-                    #     down = False
-                    # finally:
-                    #     down = True
-
-                    if board[counter_letter-1][index] == "O":
-                        if board[counter_letter+1][index] == "O":
-                            if board[counter_letter][index+1] == "O":
-                                if board[counter_letter][index-1] == "O":
-                                    board[counter_letter][index] = "X"
-                                    return
-                                else:
-                                    print("The space next to the position must be empty !")
-                                    ship_placement(board, alphabet_letters)
-                            else:
-                                print("The space next to the position must be empty !")
-                                ship_placement(board, alphabet_letters)
+                    an_occupied_space = False
+                    try:
+                        if board[counter_letter][index+1] == 'O':
+                            pass
                         else:
-                            print("The space next to the position must be empty !")
-                            ship_placement(board, alphabet_letters)
+                            an_occupied_space = True
+                    except IndexError:
+                        pass
+
+                    try:
+                        if board[counter_letter][index-1] == 'O':
+                            pass
+                        else:
+                            an_occupied_space = True
+                    except IndexError:
+                        pass
+
+                    try:
+                        if board[counter_letter+1][index] == 'O':
+                            pass
+                        else:
+                            an_occupied_space = True
+                    except IndexError:
+                        pass
+
+                    try:
+                        if board[counter_letter-1][index] == 'O':
+                            pass
+                        else:
+                            an_occupied_space = True
+                    except IndexError:
+                        pass
+
+                    if an_occupied_space is False:
+                        board[counter_letter][index] = "X"
+                        return
                     else:
                         print("The space next to the position must be empty !")
                         ship_placement(board, alphabet_letters)
@@ -145,7 +135,8 @@ def main():
 
     while pre_game_preparation:
         ship_size(board, alphabet_letters, board_size)
-        # pre_game_preparation = False
+        print_board(board, board_size)
+        pre_game_preparation = False
     print(alphabet_letters)
 
 
