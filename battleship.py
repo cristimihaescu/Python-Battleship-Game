@@ -3,9 +3,6 @@
 # initializing board
 
 
-from ast import Index
-
-
 def get_size():
     board = []
 
@@ -48,12 +45,15 @@ def print_board(board, board_size):
 
 def ship_placement(board, alphabet_letters):
     placement = input("Please select a position for your ship ! Row first and column second !")
+    coordinate_number = placement[1]
+    if len(placement) == 3:
+        coordinate_number = coordinate_number + placement[2]
     counter_letter = -1
     for letter in alphabet_letters:
         counter_letter += 1
         if placement[0].casefold() == letter.casefold():
             for index, number in enumerate(board[counter_letter]):
-                if int(placement[1])-1 == index:
+                if int(coordinate_number)-1 == index:
 
                     an_occupied_space = False
                     try:
