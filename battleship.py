@@ -1,7 +1,7 @@
 # from random import randint
 
 # initializing board
-import msvcrt
+#import msvcrt
 
 
 def get_size():
@@ -119,8 +119,8 @@ def ship_size(player, board, alphabet_letters, board_size):
             ship_placement(board, alphabet_letters)
         else:
             print("The max ship size can only be 1 !")
-    print("\nNext player's placement phase ! Press any key to continue\n")
-    msvcrt.getch()
+    input("\nNext player's placement phase ! Press ENTER to continue\n")
+    #msvcrt.getch()
 
 
 def alphabet_letters_get(board):
