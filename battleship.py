@@ -139,6 +139,7 @@ def which_player(counter):
     if counter % 2 != 0:
         return 2, counter
 
+
 def main():
     lets_play = "Let's play Battleship!"
     print("\n", lets_play, "\n")
