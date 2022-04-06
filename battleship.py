@@ -1,5 +1,5 @@
 # from random import randint
-
+import copy
 # initializing board
 #import msvcrt
 
@@ -23,7 +23,6 @@ def get_size():
     if board_size > 10:
         print("Invalid input !")
         return get_size()
-
     return board, board_size
 
 
@@ -44,7 +43,28 @@ def print_board(board, board_size):
         print(" ".join(row))
 
 
-def ship_placement(board, alphabet_letters):
+# def bord_player1():
+    # numbers_list = list(range(1, 27))
+    # print("    ", end='')
+
+    # for number in numbers_list:
+    #     print(number, end=' ')
+    #     if number >= board_size:
+    #         break
+
+    # print('\n')
+    # row_counter = 0
+    # for row in board:
+    #     print(chr(row_counter+65), end='   ')
+    #     row_counter += 1
+    #     print(" ".join(row))
+
+    
+
+
+
+
+def ship_placement(board, alphabet_letters,boardp1,boardp2,player):
     placement = input("Please select a position for your ship ! Row first and column second !")
     coordinate_number = placement[1]
     if len(placement) == 3:
@@ -91,22 +111,35 @@ def ship_placement(board, alphabet_letters):
 
                     if an_occupied_space is False:
                         board[counter_letter][index] = "X"
-                        return
+                        if player==1:
+                            boardp1[counter_letter][index] = "X"
+                            return boardp1
+                        if player==2:
+                            boardp2[counter_letter][index] = "X"
+                            return boardp2
+                        return 
                     else:
                         print("Ships are too close !")
-                        ship_placement(board, alphabet_letters)
+                        if player==1:
+                            boardp1=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
+                        if player==2:   
+                            boardp2=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
 
 
-def ship_size(player, board, alphabet_letters, board_size):
+
+def ship_size(player, board, alphabet_letters, board_size,boardp1, boardp2):
+    
     ships_size = [1, 1, 1, 1]
     ships_size_counter = 0
     for size in ships_size:
         ships_size_counter += 1
         if size == 1:
-            print_board(board, board_size)
+            # print_board(board, board_size)
             if player == 1:
+                print_board(boardp1,board_size)
                 print("\nIt's Player's 1 turn!")
             if player == 2:
+                print_board(boardp2,board_size)
                 print("\nIt's Player's 2 turn!")
             if ships_size_counter == 1:
                 print(f"\nChoose your {ships_size_counter}st ship !\n")
@@ -116,10 +149,19 @@ def ship_size(player, board, alphabet_letters, board_size):
                 print(f"\nChoose your {ships_size_counter}rd ship !\n")
             if ships_size_counter == 4:
                 print(f"\nChoose your {ships_size_counter}th ship !\n")
-            ship_placement(board, alphabet_letters)
+            if player==1:
+                boardp1=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
+            if player==2:
+                boardp2=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
+
+          
         else:
             print("The max ship size can only be 1 !")
     input("\nNext player's placement phase ! Press ENTER to continue\n")
+    if player==1:
+        return boardp1
+    if player==2:
+        return boardp2
     #msvcrt.getch()
 
 
@@ -144,10 +186,14 @@ def main():
     lets_play = "Let's play Battleship!"
     print("\n", lets_play, "\n")
 
-    board, board_size = get_size()
+    board, board_size, = get_size()
     pre_game_preparation = True
+    game_loop=True
     alphabet_letters = alphabet_letters_get(board)
     pre_game_counter = -1
+    empty_board=copy.deepcopy(board)
+    boardp1=copy.deepcopy(board)
+    boardp2=copy.deepcopy(board)
 
     while pre_game_preparation:
 
@@ -157,15 +203,16 @@ def main():
             print("It's time for battle !")
             pre_game_preparation = False
             break
+        
+        if player==1:
+            boardp1=ship_size(player, board, alphabet_letters, board_size,boardp1,boardp2)
+        if player==2:
+            boardp2=ship_size(player, board, alphabet_letters, board_size,boardp1,boardp2)
+        pre_game_preparation is False
 
-        ship_size(player, board, alphabet_letters, board_size)
-        if player == 0:
-            board_player1 = board
-        if player == 1:
-            board_player2 = board
-        # print_board(board, board_size)
-    print(alphabet_letters)
-
+    while game_loop:
+        
+        pass
 
 if __name__ == "__main__":
     main()
