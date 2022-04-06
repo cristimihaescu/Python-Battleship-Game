@@ -43,6 +43,7 @@ def print_board(board, board_size):
         print(" ".join(row))
 
 
+
 # def bord_player1():
     # numbers_list = list(range(1, 27))
     # print("    ", end='')
@@ -135,6 +136,14 @@ def ship_placement(board, alphabet_letters,boardp1,boardp2,player):
                         except IndexError:
                             pass
 
+                        if player==1:
+                            if boardp1[counter_letter][index] == "X":
+                                an_occupied_space = True
+
+                        if player==2:
+                            if boardp2[counter_letter][index] == "X":
+                                an_occupied_space = True
+
                         if an_occupied_space is False:
                             if player==1:
                                 boardp1[counter_letter][index] = "X"
@@ -144,7 +153,7 @@ def ship_placement(board, alphabet_letters,boardp1,boardp2,player):
                                 return boardp2
                             return 
                         else:
-                            print("Ships are too close !")
+                            print("Ships are too close or position is already taken !")
 
 
 
@@ -174,11 +183,16 @@ def ship_size(player, board, alphabet_letters, board_size,boardp1, boardp2):
                 boardp1=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
             if player==2:
                 boardp2=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
+            if ships_size_counter == 4:
+                if player == 1:
+                    print_board(boardp1,board_size)
+                if player == 2:
+                    print_board(boardp2,board_size)
 
           
         else:
             print("The max ship size can only be 1 !")
-    input("\nNext player's placement phase ! Press ENTER to continue\n")
+    input("\n! Press ENTER to start the game\n")
     if player==1:
         return boardp1
     if player==2:
@@ -262,6 +276,8 @@ def main():
             boardp1=ship_size(player, board, alphabet_letters, board_size,boardp1,boardp2)
         if player==2:
             boardp2=ship_size(player, board, alphabet_letters, board_size,boardp1,boardp2)
+            
+
     counter = -1
     while game_loop:
         player,counter=which_player(counter)
@@ -279,11 +295,9 @@ def main():
         print("\n  ------------------------\n")
         if player == 1:
             print_board(shooting_boardp1,board_size)
-            print("\nIt's Player's 1 turn!")
         
         if player == 2:
             print_board(shooting_boardp2,board_size)
-            print("\nIt's Player's 2 turn!")
         
         
         pass
