@@ -1,5 +1,6 @@
 # from random import randint
 import copy
+from re import L
 # initializing board
 #import msvcrt
 
@@ -68,9 +69,35 @@ def print_board(board, board_size):
 def ship_placement(board, alphabet_letters,boardp1,boardp2,player):
     while True:
         placement = input("Please select a position for your ship ! Row first and column second !")
+        if len(placement) == 0:
+            print("The coordinate is made out of 2 coordinates !")
+            continue
+        if len(placement) == 1:
+            print("The coordinate is made out of 2 coordinates !")
+            continue
         coordinate_number = placement[1]
+        coordinate_letter = placement[0]
+        number_found = 0
+        for letter in alphabet_letters:
+            if coordinate_letter.lower() == letter.lower():
+                number_found += 1
+        if number_found == 0:
+            print("The coordinates have to be made out of a letter and a number !")
+            continue
+        try:
+            coordinate_number = int(coordinate_number)
+        except ValueError:
+            print("The second coordinate has to be a number !")
+            continue
         if len(placement) == 3:
-            coordinate_number = coordinate_number + placement[2]
+            coordinate_number = str(coordinate_number) + placement[2]
+            if int(coordinate_number) > 10:
+                print("The number coordinate is out of range !")
+                continue 
+        if len(placement) > 3:
+            print("Your input can be of maximum 3 characters !")
+            continue
+        
         counter_letter = -1
         for letter in alphabet_letters:
             counter_letter += 1
