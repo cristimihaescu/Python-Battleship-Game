@@ -339,16 +339,21 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
 
                                 if if_x_near:
                                     if shooting_boardp1[counter_letter+1][index] == 'H':
+                                        shooting_boardp1[counter_letter+1][index] = 'S'
                                         if_h_near = True
                                     if shooting_boardp1[counter_letter-1][index] == 'H':
+                                        shooting_boardp1[counter_letter-1][index] = 'S'
                                         if_h_near = True
                                     if shooting_boardp1[counter_letter][index+1] == 'H':
+                                        shooting_boardp1[counter_letter][index+1] = 'S'
                                         if_h_near = True
                                     if shooting_boardp1[counter_letter][index-1] == 'H':
+                                        shooting_boardp1[counter_letter][index-1] = 'S'
                                         if_h_near = True
 
                                     if if_h_near:
                                         shooting_boardp1[counter_letter][index] = 'S'
+                                        return shooting_boardp1, shooting_boardp2
 
                                     shooting_boardp1[counter_letter][index] = 'H'
                                     return shooting_boardp1, shooting_boardp2
@@ -363,6 +368,8 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
                         if player == 2:
                             if boardp1[counter_letter][index] == 'X':
                                 if_x_near = False
+                                if_h_near = False
+
                                 if boardp1[counter_letter+1][index] == 'X':
                                     if_x_near = True
                                 if boardp1[counter_letter-1][index] == 'X':
@@ -373,28 +380,32 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
                                     if_x_near = True
 
                                 if if_x_near:
-                                    if if_x_near:
-                                        if shooting_boardp2[counter_letter+1][index] == 'H':
-                                            if_h_near = True
-                                        if shooting_boardp2[counter_letter-1][index] == 'H':
-                                            if_h_near = True
-                                        if shooting_boardp2[counter_letter][index+1] == 'H':
-                                            if_h_near = True
-                                        if shooting_boardp2[counter_letter][index-1] == 'H':
-                                            if_h_near = True
+                                    if shooting_boardp2[counter_letter+1][index] == 'H':
+                                        shooting_boardp2[counter_letter+1][index] = 'S'
+                                        if_h_near = True
+                                    if shooting_boardp2[counter_letter-1][index] == 'H':
+                                        shooting_boardp2[counter_letter-1][index] = 'S'
+                                        if_h_near = True
+                                    if shooting_boardp2[counter_letter][index+1] == 'H':
+                                        shooting_boardp2[counter_letter][index+1] = 'S'
+                                        if_h_near = True
+                                    if shooting_boardp2[counter_letter][index-1] == 'H':
+                                        shooting_boardp2[counter_letter][index-1] = 'S'
+                                        if_h_near = True
 
                                     if if_h_near:
                                         shooting_boardp2[counter_letter][index] = 'S'
+                                        return shooting_boardp1, shooting_boardp2
 
                                     shooting_boardp2[counter_letter][index] = 'H'
                                     return shooting_boardp1, shooting_boardp2
 
-                                shooting_boardp2[counter_letter][index] = 'S'
-                                return shooting_boardp1, shooting_boardp2
+                            shooting_boardp2[counter_letter][index] = 'S'
+                            return shooting_boardp1, shooting_boardp2
 
-                            if boardp1[counter_letter][index] == 'O':
-                                shooting_boardp2[counter_letter][index] = 'M'
-                                return shooting_boardp1, shooting_boardp2
+                        if boardp1[counter_letter][index] == 'O':
+                            shooting_boardp2[counter_letter][index] = 'M'
+                            return shooting_boardp1, shooting_boardp2
 
         # if ship_placement in boardp2 == "X":
         #     empty_board.append(ship_placement)
@@ -425,7 +436,7 @@ def win_condition(boardp1, boardp2, player):
             for element in row:
                 if element == "S":
                     s_counter += 1
-        if s_counter == 4:
+        if s_counter == 6:
             print("\nPlayer 2 has destroyed all of Player 1's ships and won !\n\nCongrats!")
             return True
         else:
@@ -436,7 +447,7 @@ def win_condition(boardp1, boardp2, player):
             for element in row:
                 if element == "S":
                     s_counter += 1
-        if s_counter == 4:
+        if s_counter == 6:
             print("\nPlayer 1 has destroyed all of Player 2's ships and won !\n\nCongrats!")
             return True
         else:
