@@ -1,6 +1,5 @@
 # from random import randint
 import copy
-from re import L
 # initializing board
 #import msvcrt
 
@@ -89,6 +88,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
         except ValueError:
             print("The second coordinate has to be a number !")
             continue
+
         if len(placement) == 3:
             third_coordinate = placement[2]
             try:
@@ -227,7 +227,7 @@ def ship_size(player, board, alphabet_letters, board_size,boardp1, boardp2):
                 if player == 2:
                     print_board(boardp2,board_size)
 
-          
+
         else:
             print("The max ship size can only be 1 !")
     input("\n! Press ENTER to start the game\n")
