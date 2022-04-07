@@ -90,9 +90,9 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
             print("The second coordinate has to be a number !")
             continue
         if len(placement) == 3:
-
+            third_coordinate = placement[2]
             try:
-                placement[2] = int(placement[2])
+                third_coordinate = int(placement[2])
             except TypeError:
                 print("The third coordinate has to be a number !")
                 continue
@@ -100,7 +100,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
                 print("The third coordinate has to be a number !")
                 continue
 
-            coordinate_number = str(coordinate_number) + str(placement[2])
+            coordinate_number = str(coordinate_number) + str(third_coordinate)
             if int(coordinate_number) > 10:
                 print("The number coordinate is out of range !")
                 continue
