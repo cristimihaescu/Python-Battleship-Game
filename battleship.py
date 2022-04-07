@@ -1,7 +1,7 @@
 # from random import randint
 import copy
 # initializing board
-#import msvcrt
+# import msvcrt
 
 
 def get_size():
@@ -41,28 +41,6 @@ def print_board(board, board_size):
         print(chr(row_counter+65), end='   ')
         row_counter += 1
         print(" ".join(row))
-
-
-
-# def bord_player1():
-    # numbers_list = list(range(1, 27))
-    # print("    ", end='')
-
-    # for number in numbers_list:
-    #     print(number, end=' ')
-    #     if number >= board_size:
-    #         break
-
-    # print('\n')
-    # row_counter = 0
-    # for row in board:
-    #     print(chr(row_counter+65), end='   ')
-    #     row_counter += 1
-    #     print(" ".join(row))
-
-    
-
-
 
 
 def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
@@ -118,12 +96,12 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
 
                         an_occupied_space = False
                         try:
-                            if player==1:
+                            if player == 1:
                                 if boardp1[counter_letter][index+1] == "O":
                                     pass
                                 else:
                                     an_occupied_space = True
-                            if player==2:
+                            if player == 2:
                                 if boardp2[counter_letter][index+1] == "O":
                                     pass
                                 else:
@@ -132,12 +110,12 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
                             pass
 
                         try:
-                            if player==1:
+                            if player == 1:
                                 if boardp1[counter_letter][index-1] == "O":
                                     pass
                                 else:
                                     an_occupied_space = True
-                            if player==2:
+                            if player == 2:
                                 if boardp2[counter_letter][index-1] == "O":
                                     pass
                                 else:
@@ -146,12 +124,12 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
                             pass
 
                         try:
-                            if player==1:
+                            if player == 1:
                                 if boardp1[counter_letter+1][index] == "O":
                                     pass
                                 else:
                                     an_occupied_space = True
-                            if player==2:
+                            if player == 2:
                                 if boardp2[counter_letter+1][index] == "O":
                                     pass
                                 else:
@@ -160,33 +138,33 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
                             pass
 
                         try:
-                            if player==1:
+                            if player == 1:
                                 if boardp1[counter_letter-1][index] == "O":
                                     pass
                                 else:
                                     an_occupied_space = True
-                            if player==2:
+                            if player == 2:
                                 if boardp2[counter_letter-1][index] == "O":
                                     pass
                                 else:
                                     an_occupied_space = True
-                            
+
                         except IndexError:
                             pass
 
-                        if player==1:
+                        if player == 1:
                             if boardp1[counter_letter][index] == "X":
                                 an_occupied_space = True
 
-                        if player==2:
+                        if player == 2:
                             if boardp2[counter_letter][index] == "X":
                                 an_occupied_space = True
 
                         if an_occupied_space is False:
-                            if player==1:
+                            if player == 1:
                                 boardp1[counter_letter][index] = "X"
                                 return boardp1
-                            if player==2:
+                            if player == 2:
                                 boardp2[counter_letter][index] = "X"
                                 return boardp2
                             return 
@@ -194,9 +172,8 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
                             print("Ships are too close or position is already taken !")
 
 
+def ship_size(player, board, alphabet_letters, board_size, boardp1, boardp2):
 
-def ship_size(player, board, alphabet_letters, board_size,boardp1, boardp2):
-    
     ships_size = [1, 1, 1, 1]
     ships_size_counter = 0
     for size in ships_size:
@@ -204,10 +181,10 @@ def ship_size(player, board, alphabet_letters, board_size,boardp1, boardp2):
         if size == 1:
             # print_board(board, board_size)
             if player == 1:
-                print_board(boardp1,board_size)
+                print_board(boardp1, board_size)
                 print("\nIt's Player's 1 turn!")
             if player == 2:
-                print_board(boardp2,board_size)
+                print_board(boardp2, board_size)
                 print("\nIt's Player's 2 turn!")
             if ships_size_counter == 1:
                 print(f"\nChoose your {ships_size_counter}st ship !\n")
@@ -217,25 +194,25 @@ def ship_size(player, board, alphabet_letters, board_size,boardp1, boardp2):
                 print(f"\nChoose your {ships_size_counter}rd ship !\n")
             if ships_size_counter == 4:
                 print(f"\nChoose your {ships_size_counter}th ship !\n")
-            if player==1:
-                boardp1=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
-            if player==2:
-                boardp2=ship_placement(board, alphabet_letters,boardp1,boardp2,player)
+            if player == 1:
+                boardp1 = ship_placement(board, alphabet_letters, boardp1, boardp2, player)
+            if player == 2:
+                boardp2 = ship_placement(board, alphabet_letters, boardp1, boardp2, player)
             if ships_size_counter == 4:
                 if player == 1:
-                    print_board(boardp1,board_size)
+                    print_board(boardp1, board_size)
                 if player == 2:
-                    print_board(boardp2,board_size)
-
+                    print_board(boardp2, board_size)
 
         else:
             print("The max ship size can only be 1 !")
+
     input("\n! Press ENTER to start the game\n")
-    if player==1:
+    if player == 1:
         return boardp1
-    if player==2:
+    if player == 2:
         return boardp2
-    #msvcrt.getch()
+    # msvcrt.getch()
 
 
 def alphabet_letters_get(board):
@@ -246,37 +223,105 @@ def alphabet_letters_get(board):
         row_counter += 1
     return alphabet_letters
 
-def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alphabet_letters):
-    placement = input("Please choose a position to shoot at !")
 
-    coordinate_number = placement[1]
-    if len(placement) == 3:
-        coordinate_number = coordinate_number + placement[2]
-    counter_letter = -1
-    for letter in alphabet_letters:
-        counter_letter += 1
-        if placement[0].casefold() == letter.casefold():
-            for index, number in enumerate(boardp2[counter_letter]):
-                if int(coordinate_number)-1 == index:
-                    if player == 1:
-                        if boardp2[counter_letter][index] == 'X':
-                            shooting_boardp1[counter_letter][index] = 'S'
-                            return shooting_boardp1, shooting_boardp2
-                        if boardp2[counter_letter][index] == 'O':
-                            shooting_boardp1[counter_letter][index] = 'M'
-                            return shooting_boardp1, shooting_boardp2
-                    if player == 2:
-                        if boardp1[counter_letter][index] == 'X':
-                            shooting_boardp2[counter_letter][index] = 'S'
-                            return shooting_boardp1, shooting_boardp2
-                        if boardp1[counter_letter][index] == 'O':
-                            shooting_boardp2[counter_letter][index] = 'M'
-                            return shooting_boardp1, shooting_boardp2
-    
+def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alphabet_letters):
+    if player == 1:
+        opposite_player = 2
+    if player == 2:
+        opposite_player = 1
+    while True:
+        placement = input(f"Please choose a position to shoot at in Player's {opposite_player} board!")
+
+        if (len(placement) == 1) or (len(placement) == 0):
+            print("The coordinate is made out of 2 coordinates !")
+            continue
+
+        coordinate_number = placement[1]
+        coordinate_letter = placement[0]
+        if coordinate_number == '0':
+            print("The number coordinate is out of range !")
+            continue
+        number_found = 0
+        for letter in alphabet_letters:
+            if coordinate_letter.lower() == letter.lower():
+                number_found += 1
+        if number_found == 0:
+            print("The letter coordinate is out of range !")
+            continue
+        try:
+            coordinate_number = int(coordinate_number)
+        except ValueError:
+            print("The second coordinate has to be a number !")
+            continue
+
+        if len(placement) == 3:
+            third_coordinate = placement[2]
+            try:
+                third_coordinate = int(placement[2])
+            except TypeError:
+                print("The third coordinate has to be a number !")
+                continue
+            except ValueError:
+                print("The third coordinate has to be a number !")
+                continue
+
+            coordinate_number = str(coordinate_number) + str(third_coordinate)
+            if int(coordinate_number) > 10:
+                print("The number coordinate is out of range !")
+                continue
+
+        if len(placement) > 3:
+            print("Your input can be of maximum 3 characters !")
+            continue
+        counter_letter = -1
+        for letter in alphabet_letters:
+            counter_letter += 1
+            if placement[0].casefold() == letter.casefold():
+                for index, number in enumerate(boardp2[counter_letter]):
+                    if int(coordinate_number)-1 == index:
+                        if player == 1:
+                            if boardp2[counter_letter][index] == 'X':
+                                shooting_boardp1[counter_letter][index] = 'S'
+                                return shooting_boardp1, shooting_boardp2
+                            if boardp2[counter_letter][index] == 'O':
+                                shooting_boardp1[counter_letter][index] = 'M'
+                                return shooting_boardp1, shooting_boardp2
+                        if player == 2:
+                            if boardp1[counter_letter][index] == 'X':
+                                shooting_boardp2[counter_letter][index] = 'S'
+                                return shooting_boardp1, shooting_boardp2
+                            if boardp1[counter_letter][index] == 'O':
+                                shooting_boardp2[counter_letter][index] = 'M'
+                                return shooting_boardp1, shooting_boardp2
+
         # if ship_placement in boardp2 == "X":
         #     empty_board.append(ship_placement)
 
-        
+
+def win_condition(boardp1, boardp2, player):
+
+    s_counter = 0
+    if player == 2:
+        for row in boardp2:
+            for element in row:
+                if element == "S":
+                    s_counter += 1
+        if s_counter == 4:
+            print("\nPlayer 2 has destroyed all of Player 1's ships and won !\n\nCongrats!")
+            return True
+        else:
+            return False
+
+    if player == 1:
+        for row in boardp1:
+            for element in row:
+                if element == "S":
+                    s_counter += 1
+        if s_counter == 4:
+            print("\nPlayer 1 has destroyed all of Player 2's ships and won !\n\nCongrats!")
+            return True
+        else:
+            return False
 
 
 def which_player(counter):
@@ -293,13 +338,13 @@ def main():
 
     board, board_size, = get_size()
     pre_game_preparation = True
-    game_loop=True
+    game_loop = True
     alphabet_letters = alphabet_letters_get(board)
     pre_game_counter = -1
-    shooting_boardp1=copy.deepcopy(board)
-    shooting_boardp2=copy.deepcopy(board)
-    boardp1=copy.deepcopy(board)
-    boardp2=copy.deepcopy(board)
+    shooting_boardp1 = copy.deepcopy(board)
+    shooting_boardp2 = copy.deepcopy(board)
+    boardp1 = copy.deepcopy(board)
+    boardp2 = copy.deepcopy(board)
 
     while pre_game_preparation:
 
@@ -309,36 +354,42 @@ def main():
             print("It's time for battle !")
             pre_game_preparation = False
             break
-        
-        if player==1:
-            boardp1=ship_size(player, board, alphabet_letters, board_size,boardp1,boardp2)
-        if player==2:
-            boardp2=ship_size(player, board, alphabet_letters, board_size,boardp1,boardp2)
-            
+
+        if player == 1:
+
+            boardp1 = ship_size(player, board, alphabet_letters, board_size, boardp1, boardp2)
+
+        if player == 2:
+
+            boardp2 = ship_size(player, board, alphabet_letters, board_size, boardp1, boardp2)
 
     counter = -1
     while game_loop:
-        player,counter=which_player(counter)
+
+        player, counter = which_player(counter)
 
         print("\n  ------------------------\n")
         if player == 1:
-            print_board(shooting_boardp1,board_size)
+            print_board(shooting_boardp1, board_size)
             print("\nIt's Player's 1 turn!")
-        
+
         if player == 2:
-            print_board(shooting_boardp2,board_size)
+            print_board(shooting_boardp2, board_size)
             print("\nIt's Player's 2 turn!")
+
         shooting_boardp1, shooting_boardp2 = shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alphabet_letters)
+        if win_condition(shooting_boardp1, shooting_boardp2, player):
+            game_loop = False
 
         print("\n  ------------------------\n")
         if player == 1:
-            print_board(shooting_boardp1,board_size)
-        
+            print_board(shooting_boardp1, board_size)
+
         if player == 2:
-            print_board(shooting_boardp2,board_size)
-        
-        
-        pass
+            print_board(shooting_boardp2, board_size)
+
+    quit("\nThe game has finished now !\n\nThanks for playing !")
+
 
 if __name__ == "__main__":
     main()
