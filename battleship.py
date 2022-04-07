@@ -169,30 +169,48 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                     boardp1[counter_letter][index] = "X"
                                     return boardp1
                                 if size == 2:
-                                    orientation = input("Choose whether to put the ships vertically or horizontally ! ")
-                                    if orientation.lower() == "vertical" or orientation.lower() == "v":
-                                        boardp1[counter_letter][index] = "X"
-                                        boardp1[counter_letter+1][index] = "X"
-                                        return boardp1
-                                    if orientation.lower() == "horizontal" or orientation.lower() == 'h':
-                                        boardp1[counter_letter][index] = "X"
-                                        boardp1[counter_letter][index+1] = "X"
-                                        return boardp1
+                                    while True:
+                                        orientation = input("Choose whether to put the ships vertically or horizontally ! ")
+                                        if orientation.lower() == "vertical" or orientation.lower() == "v":
+                                            boardp1[counter_letter][index] = "X"
+                                            try:
+                                                boardp1[counter_letter+1][index] = "X"
+                                            except IndexError:
+                                                print("The position you have chosen to put the ships is invalid !")
+                                                continue
+                                            return boardp1
+                                        if orientation.lower() == "horizontal" or orientation.lower() == 'h':
+                                            boardp1[counter_letter][index] = "X"
+                                            try:
+                                                boardp1[counter_letter][index+1] = "X"
+                                            except IndexError:
+                                                print("The position you have chosen to put the ships is invalid !")
+                                                continue
+                                            return boardp1
 
                             if player == 2:
                                 if size == 1:
                                     boardp2[counter_letter][index] = "X"
                                     return boardp2
                                 if size == 2:
-                                    orientation = input("Choose whether to put the ships vertically or horizontally ! ")
-                                    if orientation.lower() == "vertical" or orientation.lower() == "v":
-                                        boardp2[counter_letter][index] = "X"
-                                        boardp2[counter_letter+1][index] = "X"
-                                        return boardp2
-                                    if orientation.lower() == "horizontal" or orientation.lower() == 'h':
-                                        boardp2[counter_letter][index] = "X"
-                                        boardp2[counter_letter][index+1] = "X"
-                                        return boardp2
+                                    while True:
+                                        orientation = input("Choose whether to put the ships vertically or horizontally ! ")
+                                        if orientation.lower() == "vertical" or orientation.lower() == "v":
+                                            boardp2[counter_letter][index] = "X"
+                                            try:
+                                                boardp2[counter_letter+1][index] = "X"
+                                            except IndexError:
+                                                print("The position you have chosen to put the ships is invalid !")
+                                                continue
+                                            return boardp2
+                                        if orientation.lower() == "horizontal" or orientation.lower() == 'h':
+                                            boardp2[counter_letter][index] = "X"
+                                            try:
+                                                boardp2[counter_letter][index+1] = "X"
+                                            except IndexError:
+                                                print("The position you have chosen to put the ships is invalid !")
+                                                continue
+                                            return boardp2
     
                             return
                         else:
@@ -304,17 +322,76 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
             if placement[0].casefold() == letter.casefold():
                 for index, number in enumerate(boardp2[counter_letter]):
                     if int(coordinate_number)-1 == index:
+
                         if player == 1:
                             if boardp2[counter_letter][index] == 'X':
+                                if_x_near = False
+                                if_h_near = False
+
+                                if boardp2[counter_letter+1][index] == 'X':
+                                    if_x_near = True
+                                if boardp2[counter_letter-1][index] == 'X':
+                                    if_x_near = True
+                                if boardp2[counter_letter][index+1] == 'X':
+                                    if_x_near = True
+                                if boardp2[counter_letter][index-1] == 'X':
+                                    if_x_near = True
+
+                                if if_x_near:
+                                    if shooting_boardp1[counter_letter+1][index] == 'H':
+                                        if_h_near = True
+                                    if shooting_boardp1[counter_letter-1][index] == 'H':
+                                        if_h_near = True
+                                    if shooting_boardp1[counter_letter][index+1] == 'H':
+                                        if_h_near = True
+                                    if shooting_boardp1[counter_letter][index-1] == 'H':
+                                        if_h_near = True
+
+                                    if if_h_near:
+                                        shooting_boardp1[counter_letter][index] = 'S'
+
+                                    shooting_boardp1[counter_letter][index] = 'H'
+                                    return shooting_boardp1, shooting_boardp2
+
                                 shooting_boardp1[counter_letter][index] = 'S'
                                 return shooting_boardp1, shooting_boardp2
+
                             if boardp2[counter_letter][index] == 'O':
                                 shooting_boardp1[counter_letter][index] = 'M'
                                 return shooting_boardp1, shooting_boardp2
+
                         if player == 2:
                             if boardp1[counter_letter][index] == 'X':
+                                if_x_near = False
+                                if boardp1[counter_letter+1][index] == 'X':
+                                    if_x_near = True
+                                if boardp1[counter_letter-1][index] == 'X':
+                                    if_x_near = True
+                                if boardp1[counter_letter][index+1] == 'X':
+                                    if_x_near = True
+                                if boardp1[counter_letter][index-1] == 'X':
+                                    if_x_near = True
+
+                                if if_x_near:
+                                    if if_x_near:
+                                        if shooting_boardp2[counter_letter+1][index] == 'H':
+                                            if_h_near = True
+                                        if shooting_boardp2[counter_letter-1][index] == 'H':
+                                            if_h_near = True
+                                        if shooting_boardp2[counter_letter][index+1] == 'H':
+                                            if_h_near = True
+                                        if shooting_boardp2[counter_letter][index-1] == 'H':
+                                            if_h_near = True
+
+                                    if if_h_near:
+                                        shooting_boardp2[counter_letter][index] = 'S'
+
+                                    shooting_boardp2[counter_letter][index] = 'H'
+                                    return shooting_boardp1, shooting_boardp2
+
                                 shooting_boardp2[counter_letter][index] = 'S'
                                 return shooting_boardp1, shooting_boardp2
+
                             if boardp1[counter_letter][index] == 'O':
                                 shooting_boardp2[counter_letter][index] = 'M'
                                 return shooting_boardp1, shooting_boardp2
@@ -334,7 +411,7 @@ def tie():
         except ValueError:
             print("The input has to be a whole integer !")
             continue
-        if int(turn_option) < 5 and int(turn_option) > 50:
+        if int(turn_option) < 5 or int(turn_option) > 50:
             print("Input out of range !")
             continue
         return turn_option
