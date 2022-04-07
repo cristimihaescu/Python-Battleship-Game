@@ -66,23 +66,23 @@ def print_board(board, board_size):
 
 
 
-def ship_placement(board, alphabet_letters,boardp1,boardp2,player):
+def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
     while True:
         placement = input("Please select a position for your ship ! Row first and column second !")
-        if len(placement) == 0:
-            print("The coordinate is made out of 2 coordinates !")
-            continue
-        if len(placement) == 1:
+        if (len(placement) == 1) or (len(placement) == 0):
             print("The coordinate is made out of 2 coordinates !")
             continue
         coordinate_number = placement[1]
         coordinate_letter = placement[0]
+        if coordinate_number == '0':
+            print("The number coordinate is out of range !")
+            continue
         number_found = 0
         for letter in alphabet_letters:
             if coordinate_letter.lower() == letter.lower():
                 number_found += 1
         if number_found == 0:
-            print("The coordinates have to be made out of a letter and a number !")
+            print("The letter coordinate is out of range !")
             continue
         try:
             coordinate_number = int(coordinate_number)
@@ -90,14 +90,25 @@ def ship_placement(board, alphabet_letters,boardp1,boardp2,player):
             print("The second coordinate has to be a number !")
             continue
         if len(placement) == 3:
-            coordinate_number = str(coordinate_number) + placement[2]
+
+            try:
+                placement[2] = int(placement[2])
+            except TypeError:
+                print("The third coordinate has to be a number !")
+                continue
+            except ValueError:
+                print("The third coordinate has to be a number !")
+                continue
+
+            coordinate_number = str(coordinate_number) + str(placement[2])
             if int(coordinate_number) > 10:
                 print("The number coordinate is out of range !")
-                continue 
+                continue
+
         if len(placement) > 3:
             print("Your input can be of maximum 3 characters !")
             continue
-        
+
         counter_letter = -1
         for letter in alphabet_letters:
             counter_letter += 1
