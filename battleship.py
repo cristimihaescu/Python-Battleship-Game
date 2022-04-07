@@ -296,6 +296,23 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
 
         # if ship_placement in boardp2 == "X":
         #     empty_board.append(ship_placement)
+        
+
+def tie():
+    while True:
+        turn_option = input("\nPlease choose how many turns you want to play 5-50 !\n")
+        try:
+            turn_option = int(turn_option)
+        except TypeError:
+            print("The input has to be a whole integer !")
+            continue
+        except ValueError:
+            print("The input has to be a whole integer !")
+            continue
+        if int(turn_option) < 5 and int(turn_option) > 50:
+            print("Input out of range !")
+            continue
+        return turn_option
 
 
 def win_condition(boardp1, boardp2, player):
@@ -337,6 +354,7 @@ def main():
     print("\n", lets_play, "\n")
 
     board, board_size, = get_size()
+    turn_option = tie()
     pre_game_preparation = True
     game_loop = True
     alphabet_letters = alphabet_letters_get(board)
@@ -365,17 +383,22 @@ def main():
 
     counter = -1
     while game_loop:
-
+        
         player, counter = which_player(counter)
 
         print("\n  ------------------------\n")
         if player == 1:
             print_board(shooting_boardp1, board_size)
-            print("\nIt's Player's 1 turn!")
+            print(f"\nYour number of turns is {turn_option}")
+            print("\nIt's Player's 1 turn!\n")
 
         if player == 2:
             print_board(shooting_boardp2, board_size)
-            print("\nIt's Player's 2 turn!")
+            print(f"\nYour number of turns is {turn_option}")
+            if turn_option == 0:
+                quit("\nOh no ! It's a tie !\n")
+            turn_option = turn_option - 1
+            print("\nIt's Player's 2 turn!\n")
 
         shooting_boardp1, shooting_boardp2 = shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alphabet_letters)
         if win_condition(shooting_boardp1, shooting_boardp2, player):
