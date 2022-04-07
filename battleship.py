@@ -235,7 +235,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                             return boardp2
                                         if orientation.lower() == "horizontal" or orientation.lower() == 'h':
                                             boardp2[counter_letter][index] = "X"
-                                            
+
                                             if boardp2[counter_letter+2][index] == "X":
                                                 second_x = True
                                             if boardp2[counter_letter+1][index+1] == "X":
@@ -252,7 +252,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                                 print("The position you have chosen to put the ships is invalid !")
                                                 continue
                                             return boardp2
-    
+
                             return
                         else:
                             print("Ships are too close or position is already taken !")
@@ -279,9 +279,9 @@ def ship_size(player, board, alphabet_letters, board_size, boardp1, boardp2):
         if ships_size_counter == 4:
             print(f"\nChoose your {ships_size_counter}th ship !\n")
         if player == 1:
-            boardp1 = ship_placement(board, alphabet_letters, boardp1, boardp2, player, size)
+            ship_placement(board, alphabet_letters, boardp1, boardp2, player, size)
         if player == 2:
-            boardp2 = ship_placement(board, alphabet_letters, boardp1, boardp2, player, size)
+            ship_placement(board, alphabet_letters, boardp1, boardp2, player, size)
         if ships_size_counter == 4:
             if player == 1:
                 print_board(boardp1, board_size)
@@ -394,16 +394,20 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
 
                                     if if_h_near:
                                         shooting_boardp1[counter_letter][index] = 'S'
+                                        print("\nCongrats!\n You have sunk a large ship !\n")
                                         return shooting_boardp1, shooting_boardp2
 
                                     shooting_boardp1[counter_letter][index] = 'H'
+                                    print("\nCongrats!\n You have hit a large ship !\n")
                                     return shooting_boardp1, shooting_boardp2
 
                                 shooting_boardp1[counter_letter][index] = 'S'
+                                print("\nCongrats!\n You have sunk a ship !\n")
                                 return shooting_boardp1, shooting_boardp2
 
                             if boardp2[counter_letter][index] == 'O':
                                 shooting_boardp1[counter_letter][index] = 'M'
+                                print("\nOh no !\n You have missed !\n")
                                 return shooting_boardp1, shooting_boardp2
 
                         if player == 2:
@@ -436,15 +440,19 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
 
                                     if if_h_near:
                                         shooting_boardp2[counter_letter][index] = 'S'
+                                        print("\nCongrats!\n You have sunk a large ship !\n")
                                         return shooting_boardp1, shooting_boardp2
 
                                     shooting_boardp2[counter_letter][index] = 'H'
+                                    print("\nCongrats!\n You have hit a large ship !\n")
                                     return shooting_boardp1, shooting_boardp2
 
                             shooting_boardp2[counter_letter][index] = 'S'
+                            print("\nCongrats!\n You have sunk a ship !\n")
                             return shooting_boardp1, shooting_boardp2
 
                         if boardp1[counter_letter][index] == 'O':
+                            print("\nOh no !\n You have missed !\n")
                             shooting_boardp2[counter_letter][index] = 'M'
                             return shooting_boardp1, shooting_boardp2
 
