@@ -93,10 +93,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
             if placement[0].casefold() == letter.casefold():
                 for index, number in enumerate(board[counter_letter]):
                     if int(coordinate_number)-1 == index:
-                        exists_right = True
-                        exists_left = True
-                        exists_up = True
-                        exists_down = True
+
                         an_occupied_space = False
                         try:
                             if player == 1:
@@ -171,8 +168,19 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                 if size == 2:
                                     while True:
                                         orientation = input("Choose whether to put the ships vertically or horizontally ! ")
+                                        second_x = False
                                         if orientation.lower() == "vertical" or orientation.lower() == "v":
                                             boardp1[counter_letter][index] = "X"
+                                            if boardp1[counter_letter+2][index] == "X":
+                                                second_x = True
+                                            if boardp1[counter_letter+1][index+1] == "X":
+                                                second_x = True
+                                            if boardp1[counter_letter+1][index-1] == "X":
+                                                second_x = True
+
+                                            if second_x:
+                                                print("\nThe orientation is blocked by another ship !\n")
+                                                continue
                                             try:
                                                 boardp1[counter_letter+1][index] = "X"
                                             except IndexError:
@@ -181,6 +189,16 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                             return boardp1
                                         if orientation.lower() == "horizontal" or orientation.lower() == 'h':
                                             boardp1[counter_letter][index] = "X"
+                                            if boardp1[counter_letter][index+2] == "X":
+                                                second_x = True
+                                            if boardp1[counter_letter+1][index+1] == "X":
+                                                second_x = True
+                                            if boardp1[counter_letter-1][index+1] == "X":
+                                                second_x = True
+
+                                            if second_x:
+                                                print("\nThe orientation is blocked by another ship !\n")
+                                                continue
                                             try:
                                                 boardp1[counter_letter][index+1] = "X"
                                             except IndexError:
@@ -195,8 +213,20 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                 if size == 2:
                                     while True:
                                         orientation = input("Choose whether to put the ships vertically or horizontally ! ")
+                                        second_x = False
                                         if orientation.lower() == "vertical" or orientation.lower() == "v":
                                             boardp2[counter_letter][index] = "X"
+
+                                            if boardp2[counter_letter+2][index] == "X":
+                                                second_x = True
+                                            if boardp2[counter_letter+1][index+1] == "X":
+                                                second_x = True
+                                            if boardp2[counter_letter+1][index-1] == "X":
+                                                second_x = True
+
+                                            if second_x:
+                                                print("\nThe orientation is blocked by another ship !\n")
+                                                continue
                                             try:
                                                 boardp2[counter_letter+1][index] = "X"
                                             except IndexError:
@@ -205,6 +235,17 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                             return boardp2
                                         if orientation.lower() == "horizontal" or orientation.lower() == 'h':
                                             boardp2[counter_letter][index] = "X"
+                                            
+                                            if boardp2[counter_letter+2][index] == "X":
+                                                second_x = True
+                                            if boardp2[counter_letter+1][index+1] == "X":
+                                                second_x = True
+                                            if boardp2[counter_letter+1][index-1] == "X":
+                                                second_x = True
+
+                                            if second_x:
+                                                print("\nThe orientation is blocked by another ship !\n")
+                                                continue
                                             try:
                                                 boardp2[counter_letter][index+1] = "X"
                                             except IndexError:
