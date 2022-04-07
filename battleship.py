@@ -43,7 +43,7 @@ def print_board(board, board_size):
         print(" ".join(row))
 
 
-def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
+def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
     while True:
         placement = input("Please select a position for your ship ! Row first and column second !")
         if (len(placement) == 1) or (len(placement) == 0):
@@ -93,7 +93,10 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
             if placement[0].casefold() == letter.casefold():
                 for index, number in enumerate(board[counter_letter]):
                     if int(coordinate_number)-1 == index:
-
+                        exists_right = True
+                        exists_left = True
+                        exists_up = True
+                        exists_down = True
                         an_occupied_space = False
                         try:
                             if player == 1:
@@ -162,47 +165,69 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player):
 
                         if an_occupied_space is False:
                             if player == 1:
-                                boardp1[counter_letter][index] = "X"
-                                return boardp1
+                                if size == 1:
+                                    boardp1[counter_letter][index] = "X"
+                                    return boardp1
+                                if size == 2:
+                                    orientation = input("Choose whether to put the ships vertically or horizontally ! ")
+                                    if orientation.lower() == "vertical" or orientation.lower() == "v":
+                                        boardp1[counter_letter][index] = "X"
+                                        boardp1[counter_letter+1][index] = "X"
+                                        return boardp1
+                                    if orientation.lower() == "horizontal" or orientation.lower() == 'h':
+                                        boardp1[counter_letter][index] = "X"
+                                        boardp1[counter_letter][index+1] = "X"
+                                        return boardp1
+
                             if player == 2:
-                                boardp2[counter_letter][index] = "X"
-                                return boardp2
-                            return 
+                                if size == 1:
+                                    boardp2[counter_letter][index] = "X"
+                                    return boardp2
+                                if size == 2:
+                                    orientation = input("Choose whether to put the ships vertically or horizontally ! ")
+                                    if orientation.lower() == "vertical" or orientation.lower() == "v":
+                                        boardp2[counter_letter][index] = "X"
+                                        boardp2[counter_letter+1][index] = "X"
+                                        return boardp2
+                                    if orientation.lower() == "horizontal" or orientation.lower() == 'h':
+                                        boardp2[counter_letter][index] = "X"
+                                        boardp2[counter_letter][index+1] = "X"
+                                        return boardp2
+    
+                            return
                         else:
                             print("Ships are too close or position is already taken !")
 
 
 def ship_size(player, board, alphabet_letters, board_size, boardp1, boardp2):
 
-    ships_size = [1, 1, 1, 1]
+    ships_size = [1, 2, 1, 2]
     ships_size_counter = 0
     for size in ships_size:
         ships_size_counter += 1
-        if size == 1:
-            # print_board(board, board_size)
+        if player == 1:
+            print_board(boardp1, board_size)
+            print("\nIt's Player's 1 turn!")
+        if player == 2:
+            print_board(boardp2, board_size)
+            print("\nIt's Player's 2 turn!")
+        if ships_size_counter == 1:
+            print(f"\nChoose your {ships_size_counter}st ship !\n")
+        if ships_size_counter == 2:
+            print(f"\nChoose your {ships_size_counter}nd ship !\n")
+        if ships_size_counter == 3:
+            print(f"\nChoose your {ships_size_counter}rd ship !\n")
+        if ships_size_counter == 4:
+            print(f"\nChoose your {ships_size_counter}th ship !\n")
+        if player == 1:
+            boardp1 = ship_placement(board, alphabet_letters, boardp1, boardp2, player, size)
+        if player == 2:
+            boardp2 = ship_placement(board, alphabet_letters, boardp1, boardp2, player, size)
+        if ships_size_counter == 4:
             if player == 1:
                 print_board(boardp1, board_size)
-                print("\nIt's Player's 1 turn!")
             if player == 2:
                 print_board(boardp2, board_size)
-                print("\nIt's Player's 2 turn!")
-            if ships_size_counter == 1:
-                print(f"\nChoose your {ships_size_counter}st ship !\n")
-            if ships_size_counter == 2:
-                print(f"\nChoose your {ships_size_counter}nd ship !\n")
-            if ships_size_counter == 3:
-                print(f"\nChoose your {ships_size_counter}rd ship !\n")
-            if ships_size_counter == 4:
-                print(f"\nChoose your {ships_size_counter}th ship !\n")
-            if player == 1:
-                boardp1 = ship_placement(board, alphabet_letters, boardp1, boardp2, player)
-            if player == 2:
-                boardp2 = ship_placement(board, alphabet_letters, boardp1, boardp2, player)
-            if ships_size_counter == 4:
-                if player == 1:
-                    print_board(boardp1, board_size)
-                if player == 2:
-                    print_board(boardp2, board_size)
 
         else:
             print("The max ship size can only be 1 !")
@@ -296,11 +321,11 @@ def shooting(shooting_boardp1, shooting_boardp2, player, boardp1, boardp2, alpha
 
         # if ship_placement in boardp2 == "X":
         #     empty_board.append(ship_placement)
-        
+
 
 def tie():
     while True:
-        turn_option = input("\nPlease choose how many turns you want to play 5-50 !\n")
+        turn_option = input("\nPlease choose how many turns you want to play 5-50 ! ")
         try:
             turn_option = int(turn_option)
         except TypeError:
@@ -383,7 +408,7 @@ def main():
 
     counter = -1
     while game_loop:
-        
+
         player, counter = which_player(counter)
 
         print("\n  ------------------------\n")
