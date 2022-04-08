@@ -193,7 +193,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                         second_x = False
                                         if orientation.lower() == "vertical" or orientation.lower() == "v":
                                             boardp1[counter_letter][index] = "X"
-                                            if boardp1[counter_letter+2][index] == "X":
+                                            if boardp1[counter_letter+1][index] == "X":
                                                 second_x = True
                                             if boardp1[counter_letter+1][index+1] == "X":
                                                 second_x = True
@@ -211,7 +211,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                             return boardp1
                                         if orientation.lower() == "horizontal" or orientation.lower() == 'h':
                                             boardp1[counter_letter][index] = "X"
-                                            if boardp1[counter_letter][index+2] == "X":
+                                            if boardp1[counter_letter][index+1] == "X":
                                                 second_x = True
                                             if boardp1[counter_letter+1][index+1] == "X":
                                                 second_x = True
@@ -239,7 +239,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                         if orientation.lower() == "vertical" or orientation.lower() == "v":
                                             boardp2[counter_letter][index] = "X"
 
-                                            if boardp2[counter_letter+2][index] == "X":
+                                            if boardp2[counter_letter+1][index] == "X":
                                                 second_x = True
                                             if boardp2[counter_letter+1][index+1] == "X":
                                                 second_x = True
@@ -258,7 +258,7 @@ def ship_placement(board, alphabet_letters, boardp1, boardp2, player, size):
                                         if orientation.lower() == "horizontal" or orientation.lower() == 'h':
                                             boardp2[counter_letter][index] = "X"
 
-                                            if boardp2[counter_letter+2][index] == "X":
+                                            if boardp2[counter_letter+1][index] == "X":
                                                 second_x = True
                                             if boardp2[counter_letter+1][index+1] == "X":
                                                 second_x = True
